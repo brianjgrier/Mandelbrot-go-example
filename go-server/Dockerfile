@@ -16,6 +16,8 @@ RUN GO111MODULE=on \
 
 COPY . .
 
+RUN mkdir -p pkg/generated
+
 RUN go mod download
 
 RUN protoc -I=protobuf-src/ --go_out=plugins=grpc:pkg/generated protobuf-src/*.proto
