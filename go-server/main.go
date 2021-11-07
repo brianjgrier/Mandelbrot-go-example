@@ -7,7 +7,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 
-	grpcMandelbrot "github.com/brianjgrier/Mandelbrot/pkg/generated"
+	grpcMandelbrot "github.com/brianjgrier/Mandelbrot-go-example/pkg/generated"
 )
 
 // just a comment

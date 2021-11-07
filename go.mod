@@ -1,4 +1,4 @@
-module github.com/brianjgrier/Mandelbrot
+module github.com/brianjgrier/Mandelbrot-go-example
 
 go 1.16
 
