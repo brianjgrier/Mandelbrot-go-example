@@ -3,12 +3,6 @@
 # Check https://circleci.com/docs/2.0/language-go/ for more details
 version: 2.0
 
-workflows:
-  build:
-    jobs:
-      - build:
-          context: DockerHub
-
 jobs:
   build:
     docker:
@@ -79,4 +73,10 @@ jobs:
               docker tag ${CONTAINER_ID} "${DockerUser}/${CONTAINER_ID}:${CIRCLE_SHA1}"
               docker push  ${DockerUser}/${CONTAINER_ID}:${CIRCLE_BUILD_NUM}
             fi
+
+workflows:
+  build:
+    jobs:
+      - build:
+          context: DockerHub
 
