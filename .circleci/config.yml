@@ -57,7 +57,8 @@ jobs:
           docker save -o /caches/${CONTAINER_ID} .tar ${CONTAINER_ID} 
 
       - save_cache:
-        key: v1-{{ .Branch }}-{{ epoch }}
+        key: 
+          - v1-{{ .Branch }}-{{ epoch }}
         paths:
           - /caches/${CONTAINER_ID}.tar
 
