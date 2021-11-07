@@ -1,0 +1,56 @@
+// Generate by 
+// Google API's
+//
+// protoc challenge.proto --go_out=plugins=grpc:pkg/generated
+
+syntax="proto3";
+
+package generated;
+
+// The next line was not required in protoc 3.10 but as of 3.15.8 it is
+option go_package="./";
+
+//
+// Define the rpc (remote process call) to process the message
+//
+
+service ComplexPointProcessingService {
+    rpc ProcessPoint(PointRequest) returns (PointResult) {}
+
+    rpc ProcessPointStream(PointRequestStream) returns (stream PointStreamResult) {}
+}
+
+//
+// Defining the message that will be received by the server
+//
+
+message ComplexPoint {
+    double              Real            = 1;
+    double              Imaginary       = 2;
+}
+
+message PointRequest {
+    ComplexPoint        ThePoint        = 1;
+}
+
+  //
+  // Defining the response from the server
+  //
+message PointResult {
+    int32               Result          = 1;
+}
+
+message ComplexStreamDef {
+    int32               IterationsForReal   = 1;
+    double              StrideForReal       = 2;
+}
+
+message PointRequestStream {
+    ComplexStreamDef    Streamdef       = 1;
+    ComplexPoint        StartPoint      = 2;
+}
+
+message PointStreamResult {
+    int32               Iteration       = 1;
+    int32               Result          = 2;
+}

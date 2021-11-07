@@ -1,0 +1,13 @@
+  XColor myColors[16] ;
+
+  const int black = 0;
+  const int aliceBlue = 1; 
+  const int aqua = 2;
+  const int cornflowerBlue = 3;
+  const int Cyan = 4;
+  const int Blue = 5;
+  const int darkBlue = 6;
+  const int chartreuse = 7;
+  const int green = 9;
+  const int greenYellow = 10;
+m
