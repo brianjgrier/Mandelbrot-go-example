@@ -82,7 +82,7 @@ func (s *mandelServer) ProcessPointStream(in *grpcMandelbrot.PointRequestStream,
 }
 
 func main() {
-	serverAdr := "localhost:50051"
+	serverAdr := "localhost:8083"
 	listenAddr, err := net.Listen("tcp", serverAdr)
 	if err != nil {
 		logrus.Fatalf("Error while starting the listening service %v", err.Error())

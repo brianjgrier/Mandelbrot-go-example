@@ -112,7 +112,7 @@ func processOneAtaTime(fractalRegion BoundedArea, windowRegion WindowArea) {
 				ThePoint: grpcPoint,
 			}
 
-			cc, err := grpc.Dial("127.0.0.1:50051", grpc.WithInsecure())
+			cc, err := grpc.Dial("127.0.0.1:8083", grpc.WithInsecure())
 			if err != nil {
 				log.Fatalln("Error establishing connection:", err)
 			}
@@ -164,7 +164,7 @@ func processLineAtaTime(fractalRegion BoundedArea, windowRegion WindowArea) {
 			StartPoint: grpcStartPoint,
 		}
 
-		cc, err := grpc.Dial("127.0.0.1:50051", grpc.WithInsecure())
+		cc, err := grpc.Dial("127.0.0.1:8083", grpc.WithInsecure())
 		if err != nil {
 			log.Fatalln("Error establishing connection:", err)
 		}
