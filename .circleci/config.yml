@@ -32,7 +32,7 @@ jobs:
       - deploy:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              docker build -t ${DOCKER_USER}/${CONTAINER_ID}:${CIRCLE_BUILD_NUM} .
+              docker build -t ${DOCKER_USER}/${CONTAINER_ID}:latest .
               docker login -u ${DOCKER_USER} -p ${DOCKER_PASS} https://index.docker.io/v1/
               docker push  ${DOCKER_USER}/${CONTAINER_ID}:${CIRCLE_BUILD_NUM}
             fi
