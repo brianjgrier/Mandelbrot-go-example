@@ -1,6 +1,6 @@
 From golang:1.16.3
 
-LABEL maintainer="Brian Grier <brigrier@cisco.com>"
+LABEL maintainer="Brian Grier <brianjgrier@gmail.com>"
 
 WORKDIR /app
 
@@ -11,8 +11,8 @@ RUN GO111MODULE=on \
         go get google.golang.org/protobuf/cmd/protoc-gen-go@v1.26.0 \
         google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.1.0 \
         github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway \
-	    github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger \
-	    github.com/golang/protobuf/protoc-gen-go
+        github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger \
+	github.com/golang/protobuf/protoc-gen-go
 
 COPY . .
 
