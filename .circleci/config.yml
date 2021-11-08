@@ -32,7 +32,7 @@ jobs:
       - checkout
       - setup_remote_docker:  #(2)
           docker_layer_caching: false # (3)
-          
+
       - run:
           name: Build the application container image
           command: |
@@ -41,7 +41,7 @@ jobs:
       - deploy:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              docker login -u ${DockerUser} -p ${DockerPassword} https://index.docker.io/v1/
+              echo ${DockerPassword} | docker login -u ${DockerUser} --password-stdin  https://index.docker.io/v1/
               docker tag ${CONTAINER_ID} "${DockerUser}/${CONTAINER_ID}:${CIRCLE_SHA1}"
               docker push  ${DockerUser}/${CONTAINER_ID}:${CIRCLE_SHA1}
             fi
