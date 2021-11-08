@@ -28,7 +28,7 @@ jobs:
     #### expecting it in the form of
     ####   /go/src/github.com/circleci/go-tool
     ####   /go/src/bitbucket.org/circleci/go-tool
-    working_directory: /go/src/github.com/mandelbrot-go-example
+    working_directory: go/src/github.com/mandelbrot-go-example
     steps:
       - checkout
       - setup_remote_docker:  #(2)
