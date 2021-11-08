@@ -54,7 +54,7 @@ jobs:
           name: Save the Docker image cache
           command: |
             mkdir -p caches
-            docker save -o /caches/${CONTAINER_ID} .tar ${CONTAINER_ID} 
+            docker save -o caches/${CONTAINER_ID} .tar ${CONTAINER_ID} 
 
       - save_cache:
           key: v1-{{ .Branch }}-{{ epoch }}
