@@ -1,6 +1,9 @@
-# Golang CircleCI 2.0 configuration file
 #
-# Check https://circleci.com/docs/2.0/language-go/ for more details
+# A simple container build.
+# The variable CONTAINER_ID is defined in the job environment variables
+# Then variables DockerUser and DockerPassword are defined in the 'context' DockerHub
+#
+
 version: 2.1
 
 workflows:
@@ -11,34 +14,34 @@ workflows:
 
 jobs:
   build-container:
+
+# CircleCI maintains a library of pre-built images
+# documented at https://circleci.com/docs/2.0/circleci-images/
+# You can also use any images defined on Docker Hub.
+# Here it is using a public image from DockerHub
+# If you are using a private iamge you will need to specify the
+# username and password to pull the image
+
     docker:
       # specify the version
       - image: docker:18.06.3-ce-git
 #      - image: docker:17.07.0-ce-git
 #      - image: circleci/golang:1.16.3
 #        auth:
-#          username: $DOCKER_USER
-#          password: $DOCKER_PASS
+#          username: $DockerUser
+#          password: $DockerPassword
 #
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
 
-    #### TEMPLATE_NOTE: go expects specific checkout path representing url
-    #### expecting it in the form of
-    ####   /go/src/github.com/circleci/go-tool
-    ####   /go/src/bitbucket.org/circleci/go-tool
     working_directory: /go/src/github.com/mandelbrot-go-example
     steps:
       - checkout
       - setup_remote_docker:  #(2)
-          docker_layer_caching: false # (3)
+          docker_layer_caching: true # (3)
 
       - run:
           name: Build the application container image
           command: |
-            docker build --cache-from=app -t ${CONTAINER_ID} . -f go-server/Dockerfile
+            docker build -t ${CONTAINER_ID} . -f go-server/Dockerfile
       
       - deploy:
           command: |
