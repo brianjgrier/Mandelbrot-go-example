@@ -43,7 +43,7 @@ jobs:
           name: Load Docker image layer cache
           command: |
             set +o pipefail
-            docker load -i /caches/${CONTAINER_ID}.tar | true
+            docker load -i caches/${CONTAINER_ID}.tar | true
 
       - run:
           name: Build the application container image
@@ -54,7 +54,7 @@ jobs:
           name: Save the Docker image cache
           command: |
             mkdir -p caches
-            docker save -o caches/${CONTAINER_ID} .tar ${CONTAINER_ID} 
+            docker save -o caches/${CONTAINER_ID}.tar ${CONTAINER_ID} 
 
       - save_cache:
           key: v1-{{ .Branch }}-{{ epoch }}
