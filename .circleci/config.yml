@@ -2,8 +2,15 @@
 #
 # Check https://circleci.com/docs/2.0/language-go/ for more details
 version: 2.1
-jobs:
+
+workflows:
   build:
+    jobs:
+      - build-container:
+          context: DockerHub
+
+jobs:
+  build-container:
     docker:
       # specify the version
       - image: circleci/golang:1.16.3
@@ -24,13 +31,13 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker:  #(2)
-          docker_layer_caching: false # (3)
+          docker_layer_caching: true # (3)
 
       - restore_cache:
           keys: 
             - v1-{{ .Branch }}
           paths:
-            - /caches/${CONTAINER_ID}.tar
+            - caches/${CONTAINER_ID}.tar
 
       - run:
           name: Load Docker image layer cache
@@ -46,13 +53,13 @@ jobs:
       - run:
           name: Save the Docker image cache
           command: |
-            mkdir -p /caches
+            mkdir -p caches
             docker save -o /caches/${CONTAINER_ID} .tar ${CONTAINER_ID} 
 
       - save_cache:
           key: v1-{{ .Branch }}-{{ epoch }}
           paths:
-            - /caches/${CONTAINER_ID}.tar
+            - caches/${CONTAINER_ID}.tar
 
 
       # specify any bash command here prefixed with `run: `
@@ -73,8 +80,3 @@ jobs:
               docker push  ${DockerUser}/${CONTAINER_ID}:${CIRCLE_BUILD_NUM}
             fi
 
-workflows:
-  build:
-    jobs:
-      - build:
-          context: DockerHub
