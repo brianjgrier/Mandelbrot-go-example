@@ -1,18 +1,16 @@
-version: 2
-
 # Golang CircleCI 2.0 configuration file
 #
 # Check https://circleci.com/docs/2.0/language-go/ for more details
-
+version: 2.1
 jobs:
   build:
     docker:
       # specify the version
       - image: circleci/golang:1.16.3
-        auth:
-          username: $DOCKER_USER
-          password: $DOCKER_PASS
-
+#        auth:
+#          username: $DOCKER_USER
+#          password: $DOCKER_PASS
+#
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
@@ -29,44 +27,44 @@ jobs:
           docker_layer_caching: false # (3)
 
       - restore_cache:
-        keys:
-          - v1-{{ .Branch }}
-        paths:
-          - /caches/${CONTAINER_ID}.tar
+          keys: 
+            - v1-{{ .Branch }}
+          paths:
+            - /caches/${CONTAINER_ID}.tar
 
       - run:
-        name: Load Docker image layer cache
-        command: |
-          set +o pipefail
-          docker load -i /caches/${CONTAINER_ID}.tar | true
+          name: Load Docker image layer cache
+          command: |
+            set +o pipefail
+            docker load -i /caches/${CONTAINER_ID}.tar | true
 
       - run:
-        name: Build the application container image
-        command: |
-          docker build --cache-from=app -t ${CONTAINER_ID} . -f go-server/Dockerfile
+          name: Build the application container image
+          command: |
+            docker build --cache-from=app -t ${CONTAINER_ID} . -f go-server/Dockerfile
       
       - run:
-        name: Save the Docker image cache
-        command: |
-          mkdir -p /caches
-          docker save -o /caches/${CONTAINER_ID} .tar ${CONTAINER_ID} 
+          name: Save the Docker image cache
+          command: |
+            mkdir -p /caches
+            docker save -o /caches/${CONTAINER_ID} .tar ${CONTAINER_ID} 
 
       - save_cache:
-        key: 
-          - v1-{{ .Branch }}-{{ epoch }}
-        paths:
-          - /caches/${CONTAINER_ID}.tar
+          key: v1-{{ .Branch }}-{{ epoch }}
+          paths:
+            - /caches/${CONTAINER_ID}.tar
+
 
       # specify any bash command here prefixed with `run: `
       # - run: go get -v -t -d ./...
       # - run: go test -v ./...
-      #- deploy:
-      #    command: |
-      #      if [ "${CIRCLE_BRANCH}" == "master" ]; then
-      #        docker build -t ${DockerUser}/${CONTAINER_ID}:${CIRCLE_BUILD_NUM} . -f go-server/Dockerfile
-      #        docker login -u ${DockerUser} -p ${DockerPassword} https://index.docker.io/v1/
-      #        docker push  ${DockerUser}/${CONTAINER_ID}:${CIRCLE_BUILD_NUM}
-      #      fi
+#      - deploy:
+#          command: |
+#            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+#              docker build -t ${DockerUser}/${CONTAINER_ID}:${CIRCLE_BUILD_NUM} . -f go-server/Dockerfile
+#              docker login -u ${DockerUser} -p ${DockerPassword} https://index.docker.io/v1/
+#              docker push  ${DockerUser}/${CONTAINER_ID}:${CIRCLE_BUILD_NUM}
+#            fi
       - deploy:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
@@ -80,4 +78,3 @@ workflows:
     jobs:
       - build:
           context: DockerHub
-
