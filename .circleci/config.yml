@@ -13,7 +13,7 @@ jobs:
   build-container:
     docker:
       # specify the version
-      - image: docker:17.05.0-ce-git
+      - image: cimg/base:2021.04
 #      - image: circleci/golang:1.16.3
 #        auth:
 #          username: $DOCKER_USER
