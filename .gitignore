@@ -1,5 +1,7 @@
 .vscode/*
 the-client
 the-server
-pkg/*
+pkg/generated/*
+pkg/health/*
+cpp/generated/*
 x11app

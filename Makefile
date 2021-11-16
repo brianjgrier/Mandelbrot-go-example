@@ -1,6 +1,10 @@
 all: the-client the-server x11app
 
-pkg/generated/mandelbrot.pb.go: protobuf-src/mandelbrot.proto
+pkg/generated:
+	mkdir -p pkg/generated
+	go mod tidy
+
+pkg/generated/mandelbrot.pb.go: pkg/generated protobuf-src/mandelbrot.proto
 	protoc -I=protobuf-src/ --go_out=plugins=grpc:pkg/generated protobuf-src/*.proto
 
 cpp/generated/mandelbrot.pb.cc: protobuf-src/mandelbrot.proto
