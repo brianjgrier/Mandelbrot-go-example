@@ -15,7 +15,7 @@ the-server: go-server/main.go pkg/generated/mandelbrot.pb.go
 	go build -o the-server ./go-server
 
 x11app: cppXapp/theprog.cpp cpp/generated/mandelbrot.pb.cc
-	g++ -o x11app -I /include ./cppXapp/theprog.cpp -lstdc++ -lX11 -lm
+	g++ -o x11app -I $(PROTOINCLUDE) ./cppXapp/theprog.cpp -lstdc++ -lX11 -lm
 
 clean: 
 	rm -rf pkg

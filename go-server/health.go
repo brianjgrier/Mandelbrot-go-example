@@ -5,7 +5,6 @@ import (
 
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc/health/grpc_health_v1"
-	//pbhealth "github.com/brianjgrier/Mandelbrot/pkg/health"
 )
 
 type HealthChecker struct{}

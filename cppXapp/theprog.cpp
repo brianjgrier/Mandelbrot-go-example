@@ -9,16 +9,16 @@
  * in teh includes causes an error
  */
 
-#include <grpc/support/log.h>
-#include <grpcpp/grpcpp.h>
+//#include <grpc/support/log.h>
+//#include <grpcpp/grpcpp.h>
+//
+//using grpc::Channel;
+//using grpc::ClientAsyncResponseReader;
+//using grpc::ClientContext;
+//using grpc::CompletionQueue;
+//using grpc::Status;
 
-using grpc::Channel;
-using grpc::ClientAsyncResponseReader;
-using grpc::ClientContext;
-using grpc::CompletionQueue;
-using grpc::Status;
-
-#include "../cpp/generated/health.pb.h"
+//#include "../cpp/generated/health.pb.h"
 #include "../cpp/generated/mandelbrot.pb.h"
 
 #include <X11/Xlib.h>
